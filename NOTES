@@ -1,3 +1,12 @@
+ISSUES LIST
+
+1) Failed at using Hash Structure:
 Attempted to use hash rocket structure to collect data, but received error message.
 
 Used array structure as fallback.
+
+2) Failed at using Ternary operator
+Attempted to use ternary operator to normalise gender:
+person << parts[2].downcase.start_with?("f") 
+
+But code returned true or false instead of "Female"/"Male"

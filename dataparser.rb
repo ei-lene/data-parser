@@ -34,7 +34,11 @@ pipe_content.each do |record|
   parts = record.split("|")
   person << parts[0].strip
   person << parts[1].strip
-  person << parts[3].strip
+  if parts[3].strip.downcase.split("").first.eql?("f")
+    person << "Female"
+  else
+    person << "Male"
+  end
   person << parts[5].strip.gsub('-','/')
   person << parts[4].strip
   records << person
@@ -49,8 +53,12 @@ comma_content.each do |record|
   parts = record.split(",")
   person << parts[0].strip
   person << parts[1].strip
-  person << parts[2].strip
-  person << parts[4].strip
+  if parts[2].strip.downcase.split("").first.eql?("f")
+    person << "Female"
+  else
+    person << "Male"
+  end
+  person << parts[4].strip.gsub('-','/')
   person << parts[3].strip
   records << person
   person =[]
@@ -64,7 +72,11 @@ space_content.each do |record|
   parts = record.split
   person << parts[0].strip
   person << parts[1].strip
-  person << parts[3].strip
+  if parts[3].strip.downcase.split("").first.eql?("f")
+    person << "Female"
+  else
+    person << "Male"
+  end
   person << parts[4].strip.gsub('-','/')
   person << parts[5].strip
   records << person
@@ -73,3 +85,36 @@ end
 
 puts "printing records"
 puts records
+
+# Output 1 – sorted by gender (females before males) then by last name ascending.
+females = []
+males = []
+final_output1 = []
+records.each do |record|
+  if record[2].downcase == "female"
+    females << record
+  else
+    males << record
+  end
+end
+
+final_output1 << females.sort_by{|record| record[0]}
+final_output1 << males.sort_by{|record| record[0]}
+
+# Output 2 – sorted by birth date, ascending.
+output2 = []
+final_output2 = []
+
+output2 = records.sort_by{|record| record[3].split('/').last}
+output2.each do |record|
+  final_output2 << record.join(" ")
+end 
+
+# Output 3 – sorted by last name, descending.
+output3 = []
+final_output3 = []
+
+output3 = records.sort_by{|record| record[0]}.reverse
+output3.each do |record|
+  final_output3 << record.join(" ")
+end
