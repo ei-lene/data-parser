@@ -23,3 +23,53 @@
 # Output 3 – sorted by last name, descending.
 # Ensure that fields are displayed in the following order: last name, first name, gender, date of birth, favorite color.
 # Display dates in the format MM/DD/YYYY.
+
+records = []
+person = []
+
+# Processing and reformatting records from pipe file
+pipe_content = File.open('pipe.txt').readlines
+
+pipe_content.each do |record|
+  parts = record.split("|")
+  person << parts[0].strip
+  person << parts[1].strip
+  person << parts[3].strip
+  person << parts[5].strip.gsub('-','/')
+  person << parts[4].strip
+  records << person
+  person =[]
+end
+
+
+# Processing and reformatting records from comma file
+comma_content = File.open('comma.txt').readlines
+
+comma_content.each do |record|
+  parts = record.split(",")
+  person << parts[0].strip
+  person << parts[1].strip
+  person << parts[2].strip
+  person << parts[4].strip
+  person << parts[3].strip
+  records << person
+  person =[]
+end
+
+
+# Processing and reformatting records from space file
+space_content = File.open('space.txt').readlines
+
+space_content.each do |record|
+  parts = record.split
+  person << parts[0].strip
+  person << parts[1].strip
+  person << parts[3].strip
+  person << parts[4].strip.gsub('-','/')
+  person << parts[5].strip
+  records << person
+  person =[]
+end
+
+puts "printing records"
+puts records
