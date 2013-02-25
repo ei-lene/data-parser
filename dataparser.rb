@@ -24,6 +24,7 @@
 # Ensure that fields are displayed in the following order: last name, first name, gender, date of birth, favorite color.
 # Display dates in the format MM/DD/YYYY.
 
+### EXTRACTING RECORDS ###
 records = []
 person = []
 
@@ -83,9 +84,8 @@ space_content.each do |record|
   person =[]
 end
 
-puts "printing records"
-puts records
 
+### PREPARING OUTPUT ###
 # Output 1 – sorted by gender (females before males) then by last name ascending.
 females = []
 males = []
@@ -98,8 +98,16 @@ records.each do |record|
   end
 end
 
-final_output1 << females.sort_by{|record| record[0]}
-final_output1 << males.sort_by{|record| record[0]}
+females_sorted = females.sort_by{|record| record[0]}
+males_sorted = males.sort_by{|record| record[0]}
+
+females_sorted.each do |record|
+  final_output1 << record.join(" ")
+end 
+
+males_sorted.each do |record|
+  final_output1 << record.join(" ")
+end 
 
 # Output 2 – sorted by birth date, ascending.
 output2 = []
@@ -117,4 +125,37 @@ final_output3 = []
 output3 = records.sort_by{|record| record[0]}.reverse
 output3.each do |record|
   final_output3 << record.join(" ")
+end
+
+
+### PRINTING OUTPUT TO CONSOLE ###
+puts "Output1"
+puts final_output1
+puts "\n"
+
+puts "Output2"
+puts final_output2
+puts "\n"
+
+puts "Output3"
+puts final_output3
+
+
+### WRITING OUTPUT TO TEXT FILE ###
+File.new("output.txt","w+")
+
+content = <<-RUBY
+  Output 1:
+  #{final_output1}
+
+  Output 2:
+  #{final_output2}
+
+  Output 3:
+  #{final_output3}
+
+RUBY
+
+File.open("output.txt","w+") do |f|
+  f.puts(content)
 end
