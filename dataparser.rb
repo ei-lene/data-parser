@@ -127,7 +127,6 @@ output3.each do |record|
   final_output3 << record.join(" ")
 end
 
-
 ### PRINTING OUTPUT TO CONSOLE ###
 puts "Output1"
 puts final_output1
@@ -142,9 +141,17 @@ puts final_output3
 
 
 ### WRITING OUTPUT TO TEXT FILE ###
+
+# Formatting output for text file
+final_output1 = final_output1.join("\n  ")
+final_output2 = final_output2.join("\n  ")
+final_output3 = final_output3.join("\n  ")
+
 File.new("output.txt","w+")
 
 content = <<-RUBY
+
+
   Output 1:
   #{final_output1}
 
